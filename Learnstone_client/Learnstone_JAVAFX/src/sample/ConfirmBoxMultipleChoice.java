@@ -45,7 +45,7 @@ public class ConfirmBoxMultipleChoice{
         window.initModality(Modality.APPLICATION_MODAL);
 
     }
-    public boolean display() {
+        public boolean display() {
 
         window = new Stage();
         init();

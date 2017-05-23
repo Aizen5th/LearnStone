@@ -1,11 +1,10 @@
 package sample;
 
 import javafx.application.*;
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.*;
@@ -14,7 +13,6 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main extends Application {
@@ -31,7 +29,6 @@ public class Main extends Application {
     private ConfirmBoxMultipleChoice ExitProgram;
 
     public static void main(String[] args) {
-
         launch(args);
     }
 
@@ -39,10 +36,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         WOP = new AlertBox("Work in progress !", new Stage());
-        LogFail = new AlertBox("Login or password wrong... ", new Stage());
+        LogFail = new AlertBox("Wrong login or password... ", new Stage());
         ExitProgram = new ConfirmBoxMultipleChoice("Are you sure to exit the application ?", "YES", "NO", new Stage());
         LoginScreen = generateLoginScreen();
-        MainModelPage = generatePageModel();
+        MainModelPage = generatePageModel(PREF_HEIGHT, PREF_WIDTH);
 
 
         // Initialisation of the  MainWindow
@@ -115,7 +112,13 @@ public class Main extends Application {
             boolean result = checklogs(nameinput, nameinput.getText(), passinput, passinput.getText());
             if (result) {
                 System.out.println("Connexion with username : " + nameinput.getText() + " succesfull.");
-//                MainWindow.setScene(WelcomePage);
+                MainWindow.setMinWidth(PREF_WIDTH-1);
+                MainWindow.setMinHeight(PREF_HEIGHT-1);
+                MainWindow.setMaxWidth(PREF_WIDTH);
+                MainWindow.setMaxHeight(PREF_HEIGHT);
+                MainWindow.setScene(MainModelPage);
+                MainWindow.show();
+
             } else {
                 LogFail.display();
             }
@@ -133,8 +136,8 @@ public class Main extends Application {
         LoginScreen.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
 
         // Keybinding for login screen
-        LoginScreen.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
 
+        LoginScreen.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
             // KEY ENTER INPUT EVENT
             if (event.getCode().equals(KeyCode.ENTER)) {
                 boolean result = checklogs(nameinput, nameinput.getText(), passinput, passinput.getText());
@@ -156,19 +159,26 @@ public class Main extends Application {
     }
         //===========================================================/
 
-    private Scene generatePageModel(int Height, int Width){
+    private Scene generatePageModel(int Height, int Width) throws IOException {
 
-        // MODEL PAGE ===============================================/
-        BorderPane MainMenu = new BorderPane();
-        Label username = new Label("Antoine");
-        ImageView TOPimage = new ImageView("file:ressources/images/images.jpg");
-        HBox TOP = new HBox(username, TOPimage);
-        MainMenu.setTop(TOP);
-        //MainModelPage = new Scene(Insert top element);//
-        MainModelPage.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
-        //===========================================================/
+//        // MODEL PAGE ===============================================/
+//        BorderPane MainMenu = new BorderPane();
+//        Label username = new Label("Antoine");
+//        ImageView TOPimage = new ImageView("file:ressources/images/images.jpg");
+//        HBox TOP = new HBox(username, TOPimage);
+//        MainMenu.setTop(TOP);
+//        //MainModelPage = new Scene(Insert top element);//
+//        MainModelPage.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
+//        //===========================================================/
 
+
+        //Load the PageModel from an fxml file ! :)
+        Parent root = FXMLLoader.load(getClass().getResource("MainModelPage.fxml"));
+        Scene scene = new Scene(root, Height, Width);
+        return scene;
     }
+
+
     private boolean checklogs(TextField nameinput, String username, PasswordField passinput, String password) {
         int id = 0;
         System.out.println(username);
@@ -198,8 +208,6 @@ public class Main extends Application {
         if (result) {
             MainWindow.close();
         }
-
-
     }
 
     public void initlogo(Stage WindoW, Image Img) {
