@@ -37,7 +37,11 @@ public class Main extends Application {
 
         WOP = new AlertBox("Work in progress !", new Stage());
         LogFail = new AlertBox("Wrong login or password... ", new Stage());
+
+
         ExitProgram = new ConfirmBoxMultipleChoice("Are you sure to exit the application ?", "YES", "NO", new Stage());
+
+
         LoginScreen = generateLoginScreen();
         MainModelPage = generatePageModel(PREF_HEIGHT, PREF_WIDTH);
 
@@ -133,7 +137,8 @@ public class Main extends Application {
         gridPanel.getChildren().addAll(nameLabel, nameinput, passlabel, passinput, Login, Exit);
 
         LoginScreen = new Scene(gridPanel);
-        LoginScreen.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
+//        LoginScreen.getStylesheets().add(Main.class.getResource("file:ressources/Stylesheets/style.css").toExternalForm());
+//        LoginScreen.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
 
         // Keybinding for login screen
 
@@ -173,7 +178,7 @@ public class Main extends Application {
 
 
         //Load the PageModel from an fxml file ! :)
-        Parent root = FXMLLoader.load(getClass().getResource("MainModelPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("fxml_page/MainModelPage.fxml"));
         Scene scene = new Scene(root, Height, Width);
         return scene;
     }
