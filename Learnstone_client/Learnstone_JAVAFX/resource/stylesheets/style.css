@@ -1,5 +1,5 @@
 #gridpanelogin{
-    -fx-background-image: url("file:../../ressources/images/unnamed.png");
+    -fx-background-image: url("https://github.com/Aizen5th/LearnStone/blob/master/Learnstone_client/Learnstone_JAVAFX/ressources/images/unnamed.png?raw=true");
     -fx-background-repeat: stretch;
     -fx-background-size: stretch;
     -fx-background-position: center;
@@ -13,7 +13,7 @@
 }
 @font-face {
     font-family: 'Belwe-Medium';
-    src: url('Belwe-Medium.ttf');
+    src: url('https://github.com/Aizen5th/LearnStone/blob/master/Learnstone_client/Learnstone_JAVAFX/ressources/fonts/Belwe-Medium.ttf');
 }
 .text {
     -fx-font-family: "Belwe-Medium";
