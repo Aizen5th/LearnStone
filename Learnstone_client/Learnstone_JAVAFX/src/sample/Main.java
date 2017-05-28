@@ -1,17 +1,12 @@
 package sample;
 
-import javafx.application.*;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.layout.*;
 import javafx.scene.control.*;
-
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
@@ -21,150 +16,119 @@ public class Main extends Application {
     public Image logo;
     private String[] accountusername = {"Antoine", "Maxime", "Patrick", "Steven", "Louis"};
     private final int MAXACCOUNT = accountusername.length;
-    private final int PREF_HEIGHT = 675;
-    private final int PREF_WIDTH = 900;
+    private final int PREF_HEIGHT_MAINPAGE = 675;
+    private final int PREF_WIDTH_MAINPAGE = 900;
+    private final int PREF_HEIGHT_LOGINSCREEN = 580;
+    private final int PREF_WIDTH_LOGINSCREEN = 600;
     private String[] accountpwd = new String[MAXACCOUNT];
     private AlertBox WOP;
     private AlertBox LogFail;
     private ConfirmBoxMultipleChoice ExitProgram;
 
     public static void main(String[] args) {
-        launch(args);
+        Application.launch(Main.class, args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        MainWindow = primaryStage;
+        // Initialisation of the  logo
+        Initlogo();
         WOP = new AlertBox("Work in progress !", new Stage());
         LogFail = new AlertBox("Wrong login or password... ", new Stage());
-
-
         ExitProgram = new ConfirmBoxMultipleChoice("Are you sure to exit the application ?", "YES", "NO", new Stage());
 
-
-        LoginScreen = generateLoginScreen();
-        MainModelPage = generatePageModel(PREF_HEIGHT, PREF_WIDTH);
-
-
-        // Initialisation of the  MainWindow
-        initwindowRes(primaryStage);
-        // Initialisation of the  logo
-        initlogo(this.MainWindow, this.logo);
-
-        // Generation of the log (local database simulation)
-        for (int i = 0; i < MAXACCOUNT; i++) {
-            accountpwd[i] = generatepwd(6);
-            System.out.println(accountusername[i] + " : " + accountpwd[i]);
-        }
-
-
-        //Confirmation to close the application
-        MainWindow.setOnCloseRequest(event -> {
-            event.consume();
-            closeProgram(ExitProgram);
-        });
-
-        //Setup a transparent style
-//        MainWindow.initStyle(StageStyle.TRANSPARENT);
-//        MainWindow.setResizable(true);
-
-        //Display Loginscreen at first
+        LoginScreen = generateLoginScreen(PREF_HEIGHT_LOGINSCREEN, PREF_WIDTH_LOGINSCREEN);
+//        Initlogo();
         MainWindow.setScene(LoginScreen);
         MainWindow.show();
+
+
+//      LOGIN SCREEN A REFAIRE EN FXML
+//        LoginScreen = generateLoginScreen();
+//       MainModelPage = generatePageModel(PREF_HEIGHT_MAINPAGE, PREF_WIDTH_MAINPAGE);
+
+
+
+        // Generation of the log (local database simulation)
+//        for (int i = 0; i < MAXACCOUNT; i++) {
+//            accountpwd[i] = generatepwd(6);
+//            System.out.println(accountusername[i] + " : " + accountpwd[i]);
+//        }
+
+
+//        //Confirmation to close the application
+//        MainWindow.setOnCloseRequest(event -> {
+//            event.consume();
+//            closeProgram(ExitProgram);
+//        });
+
+
+        //Display Loginscreen at first
+
     }
 
-    private Scene generateLoginScreen() {
-        //SCENE GRIDPANE LOGIN SCREEN ==============================//
-
-        GridPane gridPanel = new GridPane();
-        gridPanel.setPadding(new Insets(10, 10, 10, 10));
-        gridPanel.setVgap(8);
-        gridPanel.setHgap(10);
-        gridPanel.setId("gridpanelogin");
-
-        // Username
-        Label nameLabel = new Label("Username : ");
-        nameLabel.setId("fontloginscreen");
-
-        GridPane.setConstraints(nameLabel, 0, 0);
-        TextField nameinput = new TextField();
+    private Scene generateLoginScreen(int Height, int Width) throws IOException {
 
 
-        nameLabel.setLabelFor(nameinput);
-        GridPane.setConstraints(nameinput, 1, 0);
+        Parent root = FXMLLoader.load(getClass().getResource("resource/fxml_page/LoginScreenPage.fxml"));
+        Scene scene = new Scene(root, Width, Height);
+        initwindowRes();
+        return scene;
 
-        // Password
-        Label passlabel = new Label("Password : ");
-        passlabel.setId("fontloginscreen");
-
-
-        GridPane.setConstraints(passlabel, 0, 1);
-        PasswordField passinput = new PasswordField();
-        passinput.setPromptText("password");
-        passlabel.setLabelFor(passinput);
-        GridPane.setConstraints(passinput, 1, 1);
-
-        // Button Login
-        Button Login = new Button("Login");
-        GridPane.setConstraints(Login, 1, 2);
-        // Button Exit
-        Button Exit = new Button("Exit");
-        GridPane.setConstraints(Exit, 1, 3);
-
-
-        Login.setOnAction(event -> {
-            boolean result = checklogs(nameinput, nameinput.getText(), passinput, passinput.getText());
-            if (result) {
-                System.out.println("Connexion with username : " + nameinput.getText() + " succesfull.");
-                MainWindow.setMinWidth(PREF_WIDTH-1);
-                MainWindow.setMinHeight(PREF_HEIGHT-1);
-                MainWindow.setMaxWidth(PREF_WIDTH);
-                MainWindow.setMaxHeight(PREF_HEIGHT);
-                MainWindow.setScene(MainModelPage);
-                MainWindow.show();
-
-            } else {
-                LogFail.display();
-            }
-        });
-
-
-        Exit.setOnAction(event -> {
-            event.consume();
-            closeProgram(ExitProgram);
-        });
-        gridPanel.setAlignment(Pos.CENTER);
-        gridPanel.getChildren().addAll(nameLabel, nameinput, passlabel, passinput, Login, Exit);
-
-        LoginScreen = new Scene(gridPanel);
-//        LoginScreen.getStylesheets().add(Main.class.getResource("file:ressources/Stylesheets/style.css").toExternalForm());
-//        LoginScreen.getStylesheets().add(getClass().getResource("/stylesheets/style.css").toExternalForm());
-
-        // Keybinding for login screen
-
-        LoginScreen.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
-            // KEY ENTER INPUT EVENT
-            if (event.getCode().equals(KeyCode.ENTER)) {
-                boolean result = checklogs(nameinput, nameinput.getText(), passinput, passinput.getText());
-                if (result) {
-                    System.out.println("Connexion with username : " + nameinput.getText() + " succesfull.");
-//                MainWindow.setScene(WelcomePage);
-                } else {
-                    LogFail.display();
-                }
-            }
-            // KEY ESCAPE INPUT EVENT
-            if(event.getCode().equals(KeyCode.ESCAPE)){
-                closeProgram(ExitProgram);
-            }
-
-
-        });
-        return LoginScreen;
+//        Login.setOnAction(event -> {
+//            boolean result = checklogs(nameinput, nameinput.getText(), passinput, passinput.getText());
+//            if (result) {
+//                System.out.println("Connexion with username : " + nameinput.getText() + " succesfull.");
+//                MainWindow.setMinWidth(PREF_WIDTH-1);
+//                MainWindow.setMinHeight(PREF_HEIGHT_MAINPAGE-1);
+//                MainWindow.setMaxWidth(PREF_WIDTH);
+//                MainWindow.setMaxHeight(PREF_HEIGHT_MAINPAGE);
+//                MainWindow.setScene(MainModelPage);
+//                MainWindow.show();
+//
+//            } else {
+//                LogFail.display();
+//            }
+//        });
+//
+//
+//        Exit.setOnAction(event -> {
+//            event.consume();
+//            closeProgram(ExitProgram);
+//        });
+//        gridPanel.setAlignment(Pos.CENTER);
+//        gridPanel.getChildren().addAll(nameLabel, nameinput, passlabel, passinput, Login, Exit);
+//
+//        LoginScreen = new Scene(gridPanel);
+//        LoginScreen.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
+//
+//        // Keybinding for login screen
+//
+//        LoginScreen.addEventFilter(KeyEvent.KEY_RELEASED, event -> {
+//            // KEY ENTER INPUT EVENT
+//            if (event.getCode().equals(KeyCode.ENTER)) {
+//                boolean result = checklogs(nameinput, nameinput.getText(), passinput, passinput.getText());
+//                if (result) {
+//                    System.out.println("Connexion with username : " + nameinput.getText() + " succesfull.");
+////                MainWindow.setScene(WelcomePage);
+//                } else {
+//                    LogFail.display();
+//                }
+//            }
+//            // KEY ESCAPE INPUT EVENT
+//            if(event.getCode().equals(KeyCode.ESCAPE)){
+//                closeProgram(ExitProgram);
+//            }
+//
+//
+//        });
+//        return LoginScreen;
     }
-        //===========================================================/
 
-    private Scene generatePageModel(int Height, int Width) throws IOException {
+
+    private void generatePageModel(int Height, int Width) throws IOException {
 
 //        // MODEL PAGE ===============================================/
 //        BorderPane MainMenu = new BorderPane();
@@ -177,10 +141,10 @@ public class Main extends Application {
 //        //===========================================================/
 
 
-        //Load the PageModel from an fxml file ! :)
-        Parent root = FXMLLoader.load(getClass().getResource("fxml_page/MainModelPage.fxml"));
-        Scene scene = new Scene(root, Height, Width);
-        return scene;
+//        //Load the PageModel from an fxml file ! :)
+//        Parent root = FXMLLoader.load(getClass().getResource("fxml_page/MainModelPage.fxml"));
+//        Scene scene = new Scene(root, Height, Width);
+//        return scene;
     }
 
 
@@ -198,13 +162,12 @@ public class Main extends Application {
         return Objects.equals(accountpwd[id], passinput.getText());
     }
 
-    private void initwindowRes(Stage primaryStage) {
+    private void initwindowRes() {
 
-        MainWindow = primaryStage;
-        MainWindow.setMinWidth(449);
-        MainWindow.setMinHeight(450);
-        MainWindow.setMaxWidth(449);
-        MainWindow.setMaxHeight(450);
+        MainWindow.setMinWidth(PREF_WIDTH_LOGINSCREEN-1);
+        MainWindow.setMinHeight(PREF_HEIGHT_LOGINSCREEN-1);
+        MainWindow.setMaxWidth(PREF_WIDTH_LOGINSCREEN);
+        MainWindow.setMaxHeight(PREF_HEIGHT_LOGINSCREEN);
 
     }
 
@@ -215,11 +178,10 @@ public class Main extends Application {
         }
     }
 
-    public void initlogo(Stage WindoW, Image Img) {
-//        Img = new Image(Main.class.getResourceAsStream("logo.png"));
-        Img = new Image("file:ressources/images/logo.png");
-        WindoW.setTitle("Learnstone");
-        WindoW.getIcons().add(Img);
+    public void Initlogo() {
+        MainWindow.getIcons().add(new Image("https://raw.githubusercontent.com/Aizen5th/LearnStone/DEV_Will/Learnstone_client/Learnstone_JAVAFX/resource/images/logo.png"));
+        MainWindow.setTitle("Learnstone");
+        MainWindow.setTitle("Learnstone");
     }
 
     public String generatepwd(int length) {

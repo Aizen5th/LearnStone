@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="636.0" prefWidth="944.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.refractor.MainModelPageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#OnclickButton1" prefHeight="636.0" prefWidth="944.0" stylesheets="@../../../resource/stylesheets/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.MainModelPageController">
    <top>
       <HBox prefHeight="63.0" prefWidth="600.0" style="-fx-background-color: ;" BorderPane.alignment="CENTER">
          <children>
@@ -20,15 +20,15 @@
                <children>
                   <ImageView fitHeight="117.0" fitWidth="116.0" layoutX="14.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <image>
-                        <Image url="@../../../resource/images/unnamed.png" />
+                        <Image url="@../images/unnamed.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="107.0" fitWidth="301.0" layoutX="546.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="165.0" AnchorPane.topAnchor="15.0">
                      <image>
-                        <Image url="@../../../resource/images/Learnstone2.png" />
+                        <Image url="@../images/Learnstone2.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="Welcome" contentDisplay="CENTER" layoutX="546.0" layoutY="14.0" prefHeight="27.0" prefWidth="340.0" stylesheets="@../../../resource/stylesheets/style.css" text="HELLO JOUEUR LAMBDA" textFill="WHITE" AnchorPane.rightAnchor="14.0">
+                  <Label fx:id="Welcome" contentDisplay="CENTER" layoutX="546.0" layoutY="14.0" prefHeight="27.0" prefWidth="340.0" text="HELLO JOUEUR LAMBDA" textFill="WHITE" AnchorPane.rightAnchor="14.0">
                      <cursor>
                         <Cursor fx:constant="NONE" />
                      </cursor>
@@ -48,7 +48,7 @@
    <left>
       <VBox alignment="TOP_CENTER" fillWidth="false" minWidth="-Infinity" prefHeight="500.0" prefWidth="123.0" spacing="40.0" style="-fx-background-color: #387880;" stylesheets="@../style.css" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#OnclickButton1" text="Button" />
+            <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
