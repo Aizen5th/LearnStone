@@ -33,23 +33,11 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         MainWindow = primaryStage;
-        // Initialisation of the  logo
-        Initlogo();
-        WOP = new AlertBox("Work in progress !", new Stage());
-        LogFail = new AlertBox("Wrong login or password... ", new Stage());
-        ExitProgram = new ConfirmBoxMultipleChoice("Are you sure to exit the application ?", "YES", "NO", new Stage());
 
+        Init();
         LoginScreen = generateLoginScreen(PREF_HEIGHT_LOGINSCREEN, PREF_WIDTH_LOGINSCREEN);
-//        Initlogo();
         MainWindow.setScene(LoginScreen);
         MainWindow.show();
-
-
-//      LOGIN SCREEN A REFAIRE EN FXML
-//        LoginScreen = generateLoginScreen();
-//       MainModelPage = generatePageModel(PREF_HEIGHT_MAINPAGE, PREF_WIDTH_MAINPAGE);
-
-
 
         // Generation of the log (local database simulation)
 //        for (int i = 0; i < MAXACCOUNT; i++) {
@@ -63,9 +51,17 @@ public class Main extends Application {
 //            event.consume();
 //            closeProgram(ExitProgram);
 //        });
+    }
 
+    private void Init() {
+//        Scene[] listscene = {LoginScreen, WelcomePage, LessonPage, TestPage, QuizzPage};
+        WOP = new AlertBox("Work in progress !", new Stage());
+        LogFail = new AlertBox("Wrong login or password... ", new Stage());
+        ExitProgram = new ConfirmBoxMultipleChoice("Are you sure to exit the application ?", "YES", "NO", new Stage());
 
-        //Display Loginscreen at first
+        logo = new Image("https://raw.githubusercontent.com/Aizen5th/LearnStone/DEV_Will/Learnstone_client/Learnstone_JAVAFX/src/sample/resource/images/logo.png");
+        MainWindow.getIcons().add(logo);
+        MainWindow.setTitle("Learnstone");
 
     }
 
@@ -176,12 +172,6 @@ public class Main extends Application {
         if (result) {
             MainWindow.close();
         }
-    }
-
-    public void Initlogo() {
-        MainWindow.getIcons().add(new Image("https://raw.githubusercontent.com/Aizen5th/LearnStone/DEV_Will/Learnstone_client/Learnstone_JAVAFX/resource/images/logo.png"));
-        MainWindow.setTitle("Learnstone");
-        MainWindow.setTitle("Learnstone");
     }
 
     public String generatepwd(int length) {
