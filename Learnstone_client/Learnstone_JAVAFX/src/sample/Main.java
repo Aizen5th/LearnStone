@@ -12,14 +12,14 @@ import java.util.*;
 
 public class Main extends Application {
     public Stage MainWindow = new Stage();
-    private Scene LoginScreen, MainModelPage, WelcomePage, LessonPage, TestPage, QuizzPage;
+    public Scene LoginScreen, MainModelPage, WelcomePage, LessonPage, TestPage, QuizzPage;
     public Image logo;
     private String[] accountusername = {"Antoine", "Maxime", "Patrick", "Steven", "Louis"};
     private final int MAXACCOUNT = accountusername.length;
-    private final int PREF_HEIGHT_MAINPAGE = 675;
-    private final int PREF_WIDTH_MAINPAGE = 900;
-    private final int PREF_HEIGHT_LOGINSCREEN = 580;
-    private final int PREF_WIDTH_LOGINSCREEN = 600;
+    public final int PREF_HEIGHT_MAINPAGE = 675;
+    public final int PREF_WIDTH_MAINPAGE = 900;
+    public final int PREF_HEIGHT_LOGINSCREEN = 580;
+    public final int PREF_WIDTH_LOGINSCREEN = 600;
     private String[] accountpwd = new String[MAXACCOUNT];
     private AlertBox WOP;
     private AlertBox LogFail;
@@ -30,16 +30,15 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
         MainWindow = primaryStage;
-
         Init();
-        LoginScreen = generateLoginScreen(PREF_HEIGHT_LOGINSCREEN, PREF_WIDTH_LOGINSCREEN);
+        LoginScreen = GenerateLoginScreen(PREF_HEIGHT_LOGINSCREEN, PREF_WIDTH_LOGINSCREEN);
         MainWindow.setScene(LoginScreen);
         MainWindow.show();
 
-        // Generation of the log (local database simulation)
+//        //Generation of the log (local database simulation)
 //        for (int i = 0; i < MAXACCOUNT; i++) {
 //            accountpwd[i] = generatepwd(6);
 //            System.out.println(accountusername[i] + " : " + accountpwd[i]);
@@ -51,9 +50,10 @@ public class Main extends Application {
 //            event.consume();
 //            closeProgram(ExitProgram);
 //        });
+//    }
     }
-
     private void Init() {
+        InitWindowRES(PREF_HEIGHT_LOGINSCREEN, PREF_WIDTH_LOGINSCREEN);
 //        Scene[] listscene = {LoginScreen, WelcomePage, LessonPage, TestPage, QuizzPage};
         WOP = new AlertBox("Work in progress !", new Stage());
         LogFail = new AlertBox("Wrong login or password... ", new Stage());
@@ -65,12 +65,11 @@ public class Main extends Application {
 
     }
 
-    private Scene generateLoginScreen(int Height, int Width) throws IOException {
+    private Scene GenerateLoginScreen(int Height, int Width) throws IOException {
 
 
         Parent root = FXMLLoader.load(getClass().getResource("resource/fxml_page/LoginScreenPage.fxml"));
         Scene scene = new Scene(root, Width, Height);
-        initwindowRes();
         return scene;
 
 //        Login.setOnAction(event -> {
@@ -124,46 +123,41 @@ public class Main extends Application {
     }
 
 
-    private void generatePageModel(int Height, int Width) throws IOException {
-
-//        // MODEL PAGE ===============================================/
-//        BorderPane MainMenu = new BorderPane();
-//        Label username = new Label("Antoine");
-//        ImageView TOPimage = new ImageView("file:ressources/images/images.jpg");
-//        HBox TOP = new HBox(username, TOPimage);
-//        MainMenu.setTop(TOP);
-//        //MainModelPage = new Scene(Insert top element);//
-//        MainModelPage.getStylesheets().add(Main.class.getResource("style.css").toExternalForm());
-//        //===========================================================/
+    public Scene GenerateMainPageModel(int Height, int Width) throws IOException {
 
 
-//        //Load the PageModel from an fxml file ! :)
-//        Parent root = FXMLLoader.load(getClass().getResource("fxml_page/MainModelPage.fxml"));
-//        Scene scene = new Scene(root, Height, Width);
-//        return scene;
+        //Load the PageModel from an fxml file ! :)
+        Parent root = FXMLLoader.load(Main.class.getResource("resource/fxml_page/MainModelPage.fxml"));
+        Scene scene = new Scene(root, Width, Height);
+
+        //Also change MainWindow resolution !
+        InitWindowRES(Height, Width);
+        return scene;
     }
 
 
-    private boolean checklogs(TextField nameinput, String username, PasswordField passinput, String password) {
+    protected boolean checklogs(TextField nameinput, String username, PasswordField passinput, String password) {
         int id = 0;
         System.out.println(username);
         for(int i = 0 ; i < accountusername.length; i++){
-            if(Objects.equals(accountusername[i], nameinput.getText())){
+            if(Objects.equals(accountusername[i], username)){
                 id = i;
 //                System.out.println(username + " do exist on the database");
                 break;
             }
         }
 //        System.out.println(accountpwd[id] + " " + password);
-        return Objects.equals(accountpwd[id], passinput.getText());
+        return Objects.equals(accountpwd[id], password);
     }
 
-    private void initwindowRes() {
 
-        MainWindow.setMinWidth(PREF_WIDTH_LOGINSCREEN-1);
-        MainWindow.setMinHeight(PREF_HEIGHT_LOGINSCREEN-1);
-        MainWindow.setMaxWidth(PREF_WIDTH_LOGINSCREEN);
-        MainWindow.setMaxHeight(PREF_HEIGHT_LOGINSCREEN);
+
+    private void InitWindowRES(int Height , int Width) {
+
+        MainWindow.setMinWidth(Width-1);
+        MainWindow.setMinHeight(Height-1);
+        MainWindow.setMaxWidth(Width);
+        MainWindow.setMaxHeight(Height);
 
     }
 

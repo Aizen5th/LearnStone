@@ -2,29 +2,25 @@ package sample.Controller;
 
 
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.DropShadowBuilder;
+import sample.Main;
 
+import java.io.IOException;
 import java.net.URL;
-import java.security.PrivateKey;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-import static java.awt.Color.WHITE;
-
 /**
  * Created by Morgadow on 26/05/2017.
  */
-public class LoginScreenController implements Initializable{
+public class LoginScreenController extends Main implements Initializable{
 
     @FXML
     private Button ButtonConnection;
@@ -53,7 +49,21 @@ public class LoginScreenController implements Initializable{
     }
 
     @FXML
-    private void Connection_Auth(){
+    private void Connection_Auth() throws IOException {
 
+        //Authentification Request Here..
+//        boolean result = checklogs(UserInput, UserInput.getText(), PasswordInput, PasswordInput.getText());
+//            if (result) {
+//                System.out.println("Connexion with username : " + UserInput.getText() + " succesfull.");
+//                MainModelPage = GenerateMainPageModel(PREF_HEIGHT_MAINPAGE, PREF_WIDTH_MAINPAGE);
+//                MainWindow.setScene(MainModelPage);
+//                MainWindow.show();
+//            } else {
+//                System.out.println("Connexion failed.");
+//            }
+
+        MainModelPage = GenerateMainPageModel(PREF_HEIGHT_MAINPAGE, PREF_WIDTH_MAINPAGE);
+        MainWindow.setScene(MainModelPage);
+//        MainWindow.show();
     }
 }

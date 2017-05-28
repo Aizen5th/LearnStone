@@ -1,19 +1,23 @@
 #LoginScreen{
     -fx-background-image: url("https://raw.githubusercontent.com/Aizen5th/LearnStone/DEV_Will/Learnstone_client/Learnstone_JAVAFX/src/sample/resource/images/unnamed.png");
+    -fx-background-color: black;
     -fx-background-repeat: stretch;
     -fx-background-size: stretch;
     -fx-background-position: center;
-
 }
 
+.button:hover{
+    -fx-effect: dropshadow(three-pass-box, white, 30, 0.19, 0, 0);
+}
+.text-field{
+    -fx-font-family: "Belwe-Medium";
+}
 #fontloginscreen{
     -fx-font-size: 25;
-    -fx-text-fill: azure;
+    -fx-text-fill: white;
     -fx-font-family: "Belwe-Bold";
+    src : url("https://github.com/Aizen5th/LearnStone/blob/DEV_Will/Learnstone_client/Learnstone_JAVAFX/src/sample/resource/fonts/Belwe-Bold.ttf");
 }
-/*.button:hover{*/
-    /*box-shadow:10px 10px 5px #FFFFFF;*/
-/*}*/
 
 @font-face {
     font-family: 'Belwe-Medium';
@@ -21,9 +25,5 @@
 }
 .text {
     -fx-font-family: "Belwe-Medium";
+    src: url('https://github.com/Aizen5th/LearnStone/blob/DEV_Will/Learnstone_client/Learnstone_JAVAFX/src/sample/resource/fonts/Belwe-Medium.ttf');
 }
-/*.undecorator-background {*/
-    /*-fx-fill: radial-gradient(focus-angle 45deg, focus-distance 20%, center 25% 25%, radius 50%, reflect, #eeeeee88, #55555588 75%, dimgray);*/
-    /*-fx-arc-width:25;*/
-    /*-fx-arc-height:25;*/
-/*}*/
