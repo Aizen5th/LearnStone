@@ -33,7 +33,7 @@ public class LoginScreenController extends Main implements Initializable{
 
     @Override
     public void initialize (URL location, ResourceBundle resources) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         DayDateLabel.setText(date.toString());
 
@@ -64,6 +64,6 @@ public class LoginScreenController extends Main implements Initializable{
 
         MainModelPage = GenerateMainPageModel(PREF_HEIGHT_MAINPAGE, PREF_WIDTH_MAINPAGE);
         MainWindow.setScene(MainModelPage);
-//        MainWindow.show();
+        MainWindow.show();
     }
 }

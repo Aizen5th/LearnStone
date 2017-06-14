@@ -10,12 +10,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-
 <AnchorPane style="-fx-background-color: #FEF99C;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller.MainModelPageController">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#OnclickButton1" prefHeight="636.0" prefWidth="944.0" stylesheets="@../stylesheets/style.css">
          <top>
-            <HBox prefHeight="63.0" prefWidth="600.0"  BorderPane.alignment="CENTER">
+            <HBox prefHeight="63.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="955.0">
                      <children>

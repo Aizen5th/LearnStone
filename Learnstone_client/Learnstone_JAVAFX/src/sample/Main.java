@@ -123,7 +123,7 @@ public class Main extends Application {
     }
 
 
-    public Scene GenerateMainPageModel(int Height, int Width) throws IOException {
+    public Scene    GenerateMainPageModel(int Height, int Width) throws IOException {
 
 
         //Load the PageModel from an fxml file ! :)
